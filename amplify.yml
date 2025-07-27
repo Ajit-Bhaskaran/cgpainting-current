@@ -1,0 +1,29 @@
+
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "=== PREBUILD PHASE START ==="
+        - echo "Node version:" && node --version
+        - echo "NPM version:" && npm --version
+        - cd app
+        - npm ci --legacy-peer-deps
+        - echo "=== PREBUILD PHASE END ==="
+    build:
+      commands:
+        - echo "=== BUILD PHASE START ==="
+        - cd app
+        - npm run build
+        - echo "=== BUILD PHASE END ==="
+  artifacts:
+    baseDirectory: app
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - app/node_modules/**/*
+      - app/.next/cache/**/*
+  environment:
+    variables:
+      NODE_VERSION: '18.20.4'
