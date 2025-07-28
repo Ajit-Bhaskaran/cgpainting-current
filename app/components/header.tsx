@@ -1,28 +1,31 @@
 
 'use client'
 
-import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useState } from 'react'
 import { Button } from './ui/button'
 import { Phone, Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const scrollToSection = (sectionId: string) => {
-    // If we're on the quote page, navigate to home first
-    if (window.location.pathname !== '/') {
-      window.location.href = `/#${sectionId}`;
-      return;
-    }
-    
-    // If we're on the home page, scroll to the section
-    const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <header className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -34,7 +37,7 @@ export default function Header() {
               <div className="flex items-center">
                 <a 
                   href="tel:0413847063" 
-                  className="flex items-center gap-2 bg-deep-blue hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 hover-lift"
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200"
                 >
                   <Phone className="w-4 h-4" />
                   CALL NOW 0413 847 063
@@ -44,71 +47,59 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Main Navigation */}
+        {/* Main Header */}
         <div className="px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center hover:opacity-90 transition-all duration-200 hover-lift">
-              <div className="w-12 h-12 bg-deep-blue rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-blue-800">
-                <span className="text-white font-bold text-xl">CG</span>
-              </div>
+            <Link 
+              className="flex items-center hover:opacity-90 transition-opacity duration-200" 
+              href="/"
+            >
+              <Image
+                src="/logo.png"
+                alt="CG Painting - The Travelling Painter"
+                width={180}
+                height={72}
+                className="h-12 sm:h-16 w-auto object-contain"
+                priority
+              />
               <div className="ml-3 sm:ml-4">
-                <h1 className="text-lg sm:text-2xl font-bold text-deep-blue">CG Painting</h1>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium font-manrope">The Travelling Painter</p>
+                <h1 className="text-lg sm:text-2xl font-bold text-blue-600">CG Painting</h1>
+                <p className="text-xs sm:text-sm text-gray-600 font-medium">The Travelling Painter</p>
               </div>
             </Link>
 
-            {/* Navigation - Desktop */}
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <button 
-                onClick={() => scrollToSection('services')}
-                className="text-black hover:text-deep-blue font-medium transition-all duration-200 hover-lift relative group"
-              >
+              <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
                 Services
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-deep-blue transition-all duration-200 group-hover:w-full"></span>
-              </button>
-              <button 
-                onClick={() => scrollToSection('about')}
-                className="text-black hover:text-deep-blue font-medium transition-all duration-200 hover-lift relative group"
-              >
+              </a>
+              <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
                 About
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-deep-blue transition-all duration-200 group-hover:w-full"></span>
-              </button>
-              <button 
-                onClick={() => scrollToSection('testimonials')}
-                className="text-black hover:text-deep-blue font-medium transition-all duration-200 hover-lift relative group"
-              >
+              </a>
+              <a href="#testimonials" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
                 Reviews
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-deep-blue transition-all duration-200 group-hover:w-full"></span>
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="text-black hover:text-deep-blue font-medium transition-all duration-200 hover-lift relative group"
-              >
+              </a>
+              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
                 Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-deep-blue transition-all duration-200 group-hover:w-full"></span>
-              </button>
+              </a>
             </nav>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-gray-600 hover:text-deep-blue hover:bg-gray-100 transition-all duration-200 hover-lift"
+                className="p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors"
                 aria-label="Toggle mobile menu"
               >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                <Menu className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Get Quote Button - Desktop */}
+            {/* Get Quote Button */}
             <div className="hidden sm:block">
               <Link href="/quote">
-                <Button className="bg-deep-blue hover:bg-blue-800 text-white px-6 py-2 font-semibold transition-all duration-200 hover-lift hover:shadow-lg">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-semibold">
                   Get Quote
                 </Button>
               </Link>
@@ -116,54 +107,42 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white/95 backdrop-blur-sm animate-fade-in-up">
+          <div className="md:hidden border-t border-gray-200 bg-white">
             <div className="px-4 py-4 space-y-4">
-              <nav className="flex flex-col space-y-4">
-                <button 
-                  onClick={() => {
-                    scrollToSection('services');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-left text-black hover:text-deep-blue font-medium transition-all duration-200 py-2 px-2 rounded-lg hover:bg-gray-100 hover-lift"
-                >
-                  Services
-                </button>
-                <button 
-                  onClick={() => {
-                    scrollToSection('about');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-left text-black hover:text-deep-blue font-medium transition-all duration-200 py-2 px-2 rounded-lg hover:bg-gray-100 hover-lift"
-                >
-                  About
-                </button>
-                <button 
-                  onClick={() => {
-                    scrollToSection('testimonials');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-left text-black hover:text-deep-blue font-medium transition-all duration-200 py-2 px-2 rounded-lg hover:bg-gray-100 hover-lift"
-                >
-                  Reviews
-                </button>
-                <button 
-                  onClick={() => {
-                    scrollToSection('contact');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-left text-black hover:text-deep-blue font-medium transition-all duration-200 py-2 px-2 rounded-lg hover:bg-gray-100 hover-lift"
-                >
-                  Contact
-                </button>
-              </nav>
-              
-              {/* Mobile Get Quote Button */}
-              <div className="pt-4 border-t border-gray-200">
-                <Link href="/quote" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button className="w-full bg-deep-blue hover:bg-blue-800 text-white px-6 py-3 font-semibold transition-all duration-200 hover-lift">
-                    Get Free Quote
+              <a 
+                href="#services" 
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Services
+              </a>
+              <a 
+                href="#about" 
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </a>
+              <a 
+                href="#testimonials" 
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Reviews
+              </a>
+              <a 
+                href="#contact" 
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </a>
+              <div className="pt-4">
+                <Link href="/quote">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-semibold">
+                    Get Quote
                   </Button>
                 </Link>
               </div>
