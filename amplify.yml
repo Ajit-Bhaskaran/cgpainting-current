@@ -17,7 +17,7 @@ frontend:
         - npm run build
         - echo "=== BUILD PHASE END ==="
   artifacts:
-    baseDirectory: app
+    baseDirectory: app/out
     files:
       - '**/*'
   cache:
