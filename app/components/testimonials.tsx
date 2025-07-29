@@ -1,7 +1,8 @@
 
 'use client'
 
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, Quote, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 const testimonials = [
   {
@@ -40,7 +41,7 @@ const testimonials = [
     name: "Emma Rodriguez",
     location: "Kingaroy, QLD",
     rating: 5,
-    text: "Our 1920s Queenslander needed special care and attention. Cameron's experience with heritage homes really showed. He preserved the character while giving it a fresh, modern look.",
+    text: "Our 1920s Queenslander needed special care and attention. Cameron's experience with heritage homes really showed. He preserved the character while giving it a beautiful fresh look.",
     project: "Heritage Home Restoration",
     date: "June 2024"
   },
@@ -55,99 +56,155 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  // Auto-scroll functionality - 5 seconds
+  useEffect(() => {
+    if (isPaused) return
+
+    const interval = setInterval(() => {
+      handleNext()
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [isPaused, currentIndex])
+
+  const handleNext = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
+      setIsTransitioning(false)
+    }, 300)
+  }
+
+  const handlePrevious = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
+      setIsTransitioning(false)
+    }, 300)
+  }
+
+  const goToSlide = (index: number) => {
+    if (isTransitioning || index === currentIndex) return
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentIndex(index)
+      setIsTransitioning(false)
+    }, 300)
+  }
+
+  const togglePause = () => {
+    setIsPaused(!isPaused)
+  }
+
   return (
-    <section id="testimonials" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="py-16 bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-manrope">What Our Customers Say</h2>
-          <div className="h-1 w-24 bg-blue-600 mx-auto rounded-full mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 font-manrope">What Our Customers Say</h2>
+          <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full mb-4"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Real feedback from satisfied customers across Queensland
           </p>
         </div>
 
-        {/* Featured Testimonial */}
-        <div className="mb-16">
-          <div className="rounded-lg text-card-foreground bg-blue-50 border border-blue-200 shadow-lg max-w-4xl mx-auto">
-            <div className="p-8 lg:p-12">
+        {/* Compact Testimonial Card */}
+        <div className="relative">
+          <div className="bg-blue-50 rounded-xl border border-gray-200 shadow-lg overflow-hidden">
+            <div className="p-6 md:p-8">
               <div className="text-center space-y-6">
+                {/* Stars */}
                 <div className="flex justify-center space-x-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-6 h-6 fill-current text-yellow-500" />
+                    <Star key={i} className="w-5 h-5 fill-current text-yellow-500" />
                   ))}
                 </div>
-                <blockquote className="text-xl md:text-2xl text-gray-700 leading-relaxed italic font-medium">
-                  "{testimonials[0].text}"
-                </blockquote>
-                <div className="space-y-4">
-                  <div className="text-xl font-bold text-gray-900">{testimonials[0].name}</div>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-                      <span>{testimonials[0].location}</span>
+
+                {/* Testimonial Text */}
+                <div className="relative min-h-[80px] md:min-h-[100px] flex items-center justify-center">
+                  <blockquote 
+                    className={`text-lg md:text-xl text-gray-700 leading-relaxed italic font-medium transition-all duration-300 ease-in-out ${
+                      isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
+                    }`}
+                  >
+                    "{testimonials[currentIndex].text}"
+                  </blockquote>
+                </div>
+
+                {/* Customer Info */}
+                <div className={`space-y-3 transition-all duration-300 ease-in-out ${
+                  isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
+                }`}>
+                  <div className="text-xl font-bold text-gray-900">{testimonials[currentIndex].name}</div>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-gray-600">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                      <span>{testimonials[currentIndex].location}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-                      <span>{testimonials[0].date}</span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                      <span>{testimonials[currentIndex].date}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-                      <span>{testimonials[0].project}</span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                      <span className="text-blue-600 font-medium">{testimonials[currentIndex].project}</span>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-4 pt-6">
-                  <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:text-accent-foreground h-9 rounded-full p-2 border-blue-300 text-blue-600 hover:bg-blue-100">
+
+                {/* Navigation Controls */}
+                <div className="flex items-center justify-center gap-4 pt-4">
+                  {/* Previous Button */}
+                  <button 
+                    onClick={handlePrevious}
+                    disabled={isTransitioning}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  <div className="flex space-x-2">
-                    {[...Array(6)].map((_, i) => (
-                      <button key={i} className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                        i === 0 ? 'bg-blue-600' : 'bg-blue-300'
-                      }`}></button>
-                    ))}
-                  </div>
-                  <button className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:text-accent-foreground h-9 rounded-full p-2 border-blue-300 text-blue-600 hover:bg-blue-100">
+
+                  {/* Play/Pause Button */}
+                  <button 
+                    onClick={togglePause}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200"
+                  >
+                    {isPaused ? <Play className="w-4 h-4 ml-0.5" /> : <Pause className="w-4 h-4" />}
+                  </button>
+
+                  {/* Next Button */}
+                  <button 
+                    onClick={handleNext}
+                    disabled={isTransitioning}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     <ChevronRight className="w-5 h-5" />
                   </button>
+                </div>
+
+                {/* Dots Indicator */}
+                <div className="flex justify-center space-x-2 pt-4">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      disabled={isTransitioning}
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                        index === currentIndex 
+                          ? 'bg-blue-600 scale-110' 
+                          : 'bg-blue-300 hover:bg-blue-400'
+                      } ${isTransitioning ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <div 
-              key={index}
-              className={`rounded-lg bg-card text-card-foreground cursor-pointer transition-all duration-300 hover:shadow-lg border-2 ${
-                index === 0 ? 'border-blue-600 shadow-md shadow-blue-600/20' : 'border-gray-200 hover:border-blue-300'
-              }`}
-            >
-              <div className="p-6">
-                <div className="space-y-4">
-                  <div className="flex space-x-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current text-yellow-500" />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">
-                    "{testimonial.text}"
-                  </p>
-                  <div className="border-t pt-4">
-                    <div className="font-semibold text-gray-900 text-sm">{testimonial.name}</div>
-                    <div className="text-xs text-gray-600 flex items-center gap-1">
-                      <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                      {testimonial.location} • {testimonial.date}
-                    </div>
-                    <div className="text-xs text-blue-600 font-medium mt-1">{testimonial.project}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>

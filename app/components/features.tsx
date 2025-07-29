@@ -19,7 +19,7 @@ const features = [
     icon: MapPin,
     title: "We Travel To You",
     description: "From city homes to remote properties, we bring our professional service wherever you need us.",
-    detail: "All Areas Covered"
+    detail: "All Areas in and Around Hervey Bay"
   },
   {
     icon: Clock,

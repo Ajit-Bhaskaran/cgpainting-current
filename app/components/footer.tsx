@@ -14,12 +14,10 @@ export default function Footer() {
             {/* Company Info */}
             <div className="space-y-6">
               <div className="flex items-center mb-6">
-                <Image
+                <img
                   src="/logo.png"
                   alt="CG Painting Logo"
-                  width={120}
-                  height={48}
-                  className="h-12 w-auto object-contain mr-3 brightness-0 invert"
+                  className="h-12 sm:h-16 w-auto object-contain mr-3 sm:mr-4"
                 />
                 <div>
                   <h3 className="text-2xl font-bold text-white">CG Painting</h3>

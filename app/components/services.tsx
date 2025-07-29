@@ -14,7 +14,7 @@ const services = [
     subtitle: "Quality work, no matter the location",
     description: "From cozy country homes to modern city houses, bringing quality paint jobs to your doorstep no matter where you are.",
     features: ["Interior & exterior painting", "Weatherboard restoration", "Roof painting", "Fence & deck painting", "Pressure cleaning", "Surface preparation"],
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/domestic-house.jpg",
     detailedDescription: "Transform your home with our comprehensive residential painting services. We specialize in both interior and exterior projects, using premium paints and proven techniques to deliver lasting results that enhance your property's value and curb appeal."
   },
   {
@@ -24,7 +24,7 @@ const services = [
     subtitle: "Professional service, minimal disruption",
     description: "Professional painting services for offices, retail spaces, and commercial buildings with minimal disruption.",
     features: ["Office spaces", "Retail stores", "Warehouses", "Scheduled maintenance", "After-hours work", "Business consultation"],
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+    image: "/commercial-scaffolding.jpg",
     detailedDescription: "Keep your business looking professional with our commercial painting services. We work around your schedule to minimize disruption while delivering high-quality results that create a positive impression on customers and employees."
   },
   {
@@ -34,7 +34,7 @@ const services = [
     subtitle: "Protective solutions for heavy-duty environments",
     description: "Specialized industrial painting and protective coatings for factories, warehouses, and industrial facilities.",
     features: ["Factory painting", "Warehouse coatings", "Protective finishes", "Safety compliance", "Equipment painting", "Maintenance programs"],
-    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/industrial-spray-painting.jpg",
     detailedDescription: "Protect your industrial assets with our specialized coating services. We understand the unique requirements of industrial environments and provide durable, long-lasting solutions that meet safety and compliance standards."
   },
   {
@@ -44,7 +44,7 @@ const services = [
     subtitle: "Custom solutions for unique projects",
     description: "Custom painting solutions including heritage restoration, decorative finishes, and specialized techniques.",
     features: ["Heritage restoration", "Decorative finishes", "Texture coatings", "Color consultation", "Specialty techniques", "Custom solutions"],
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/heritage-building.jpg",
     detailedDescription: "Bring your vision to life with our specialty painting services. From heritage restoration to modern decorative finishes, we have the expertise to handle unique projects that require special attention and techniques."
   }
 ]
