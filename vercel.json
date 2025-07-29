@@ -1,0 +1,39 @@
+{
+  "buildCommand": "cd app && npm run build",
+  "outputDirectory": "app/out",
+  "headers": [
+    {
+      "source": "*.jpg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "source": "*.png",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        }
+      ]
+    },
+    {
+      "source": "*.svg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+} 

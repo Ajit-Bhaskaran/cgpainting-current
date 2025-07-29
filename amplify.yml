@@ -15,6 +15,10 @@ frontend:
         - echo "=== BUILD PHASE START ==="
         - cd app
         - npm run build
+        - echo "Verifying build output..."
+        - ls -la out/
+        - echo "Checking for images..."
+        - ls -la out/*.jpg out/*.png out/*.svg || echo "Some images not found"
         - echo "=== BUILD PHASE END ==="
   artifacts:
     baseDirectory: app/out
