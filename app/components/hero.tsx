@@ -11,13 +11,10 @@ export default function Hero() {
     <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <Image
-          src="https://cdn.abacus.ai/images/d333196f-ff3d-4904-a5fb-bbb1c6acd2e5.png"
+        <img
+          src="/hero-background.jpg"
           alt="Before and After House Painting Transformation"
-          fill
-          className="object-cover opacity-80"
-          priority
-          sizes="100vw"
+          className="object-cover opacity-80 w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-blue-900/40"></div>
       </div>

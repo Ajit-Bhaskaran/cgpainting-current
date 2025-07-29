@@ -106,18 +106,12 @@ export default function Services() {
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           <div className="grid md:grid-cols-2 gap-0">
             {/* Image Section */}
-            <div className="relative h-64 md:h-auto">
-              <Image
+            <div className="order-1 lg:order-2">
+              <img
                 src={services[selectedService].image}
                 alt={services[selectedService].title}
-                fill
-                className="object-cover"
+                className="rounded-lg shadow-xl object-cover w-full h-64 md:h-80 lg:h-96"
               />
-              <div className="absolute top-4 left-4">
-                <div className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-                  {services[selectedService].category}
-                </div>
-              </div>
             </div>
             
             {/* Content Section */}

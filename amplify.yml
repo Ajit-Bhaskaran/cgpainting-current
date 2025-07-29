@@ -27,3 +27,16 @@ frontend:
   environment:
     variables:
       NODE_VERSION: '18.20.4'
+  customHeaders:
+    - pattern: '**/*.jpg'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=31536000, immutable'
+    - pattern: '**/*.png'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=31536000, immutable'
+    - pattern: '**/*.svg'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=31536000, immutable'

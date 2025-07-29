@@ -6,15 +6,27 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 import { Phone, Menu, X } from 'lucide-react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const handleNavigation = (sectionId: string) => {
+    if (pathname === '/') {
+      // If we're on the main page, just scroll to the section
+      scrollToSection(sectionId)
+    } else {
+      // If we're on another page (like quote), navigate to main page with hash
+      window.location.href = `/#${sectionId}`
     }
   }
 
@@ -55,13 +67,10 @@ export default function Header() {
               className="flex items-center hover:opacity-90 transition-opacity duration-200" 
               href="/"
             >
-              <Image
+              <img
                 src="/logo.png"
                 alt="CG Painting - The Travelling Painter"
-                width={180}
-                height={72}
                 className="h-12 sm:h-16 w-auto object-contain"
-                priority
               />
               <div className="ml-3 sm:ml-4">
                 <h1 className="text-lg sm:text-2xl font-bold text-blue-600">CG Painting</h1>
@@ -71,18 +80,30 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              <button 
+                onClick={() => handleNavigation('services')}
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Services
-              </a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              </button>
+              <button 
+                onClick={() => handleNavigation('about')}
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 About
-              </a>
-              <a href="#testimonials" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              </button>
+              <button 
+                onClick={() => handleNavigation('testimonials')}
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Reviews
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              </button>
+              <button 
+                onClick={() => handleNavigation('contact')}
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >
                 Contact
-              </a>
+              </button>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -111,34 +132,42 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 bg-white">
             <div className="px-4 py-4 space-y-4">
-              <a 
-                href="#services" 
-                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <button 
+                onClick={() => {
+                  handleNavigation('services')
+                  setIsMobileMenuOpen(false)
+                }}
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors w-full text-left"
               >
                 Services
-              </a>
-              <a 
-                href="#about" 
-                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button 
+                onClick={() => {
+                  handleNavigation('about')
+                  setIsMobileMenuOpen(false)
+                }}
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors w-full text-left"
               >
                 About
-              </a>
-              <a 
-                href="#testimonials" 
-                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button 
+                onClick={() => {
+                  handleNavigation('testimonials')
+                  setIsMobileMenuOpen(false)
+                }}
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors w-full text-left"
               >
                 Reviews
-              </a>
-              <a 
-                href="#contact" 
-                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+              </button>
+              <button 
+                onClick={() => {
+                  handleNavigation('contact')
+                  setIsMobileMenuOpen(false)
+                }}
+                className="block text-gray-700 hover:text-blue-600 font-medium transition-colors w-full text-left"
               >
                 Contact
-              </a>
+              </button>
               <div className="pt-4">
                 <Link href="/quote">
                   <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-semibold">
