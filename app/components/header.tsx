@@ -71,6 +71,10 @@ export default function Header() {
                 src="/logo.png"
                 alt="CG Painting - The Travelling Painter"
                 className="h-12 sm:h-16 w-auto object-contain"
+                onError={(e) => {
+                  console.error('Logo image failed to load');
+                  e.currentTarget.style.display = 'none';
+                }}
               />
               <div className="ml-3 sm:ml-4">
                 <h1 className="text-lg sm:text-2xl font-bold text-blue-600">CG Painting</h1>

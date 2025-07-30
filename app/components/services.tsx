@@ -111,6 +111,10 @@ export default function Services() {
                 src={services[selectedService].image}
                 alt={services[selectedService].title}
                 className="rounded-lg shadow-xl object-cover w-full h-64 md:h-80 lg:h-96"
+                onError={(e) => {
+                  console.error('Image failed to load:', services[selectedService].image);
+                  e.currentTarget.style.display = 'none';
+                }}
               />
             </div>
             

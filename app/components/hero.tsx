@@ -15,6 +15,10 @@ export default function Hero() {
           src="/hero-background.jpg"
           alt="Before and After House Painting Transformation"
           className="object-cover opacity-80 w-full h-full"
+          onError={(e) => {
+            console.error('Hero background image failed to load');
+            e.currentTarget.style.display = 'none';
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-blue-900/40"></div>
       </div>

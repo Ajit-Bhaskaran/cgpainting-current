@@ -16,6 +16,17 @@ frontend:
         - cd app
         - npm run build
         - echo "=== BUILD PHASE END ==="
+    postBuild:
+      commands:
+        - echo "=== POSTBUILD PHASE START ==="
+        - cd app
+        - echo "Checking if images exist in public folder:"
+        - ls -la public/
+        - echo "Checking if images were copied to out folder:"
+        - ls -la out/
+        - echo "Copying public folder contents to out if needed:"
+        - cp -r public/* out/ 2>/dev/null || echo "No public files to copy or already copied"
+        - echo "=== POSTBUILD PHASE END ==="
   artifacts:
     baseDirectory: app/out
     files:

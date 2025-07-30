@@ -18,6 +18,10 @@ export default function Footer() {
                   src="/logo.png"
                   alt="CG Painting Logo"
                   className="h-12 sm:h-16 w-auto object-contain mr-3 sm:mr-4"
+                  onError={(e) => {
+                    console.error('Footer logo image failed to load');
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
                 <div>
                   <h3 className="text-2xl font-bold text-white">CG Painting</h3>
