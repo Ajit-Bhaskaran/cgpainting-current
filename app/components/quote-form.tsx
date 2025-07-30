@@ -36,13 +36,47 @@ export default function QuoteForm() {
     setIsSubmitting(true)
 
     try {
-      // Send form data to our API endpoint
-      const response = await fetch('/api/quote', {
+      // Send form data directly to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: 'c102832c-bb16-485f-903b-95cbd6aaee05',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          propertyType: formData.propertyType,
+          projectType: formData.projectType,
+          rooms: formData.rooms,
+          timeline: formData.timeline,
+          budget: formData.budget,
+          details: formData.details,
+          subject: 'New Quote Request - CG Painting',
+          message: `
+New quote request received:
+
+Contact Information:
+- Name: ${formData.name}
+- Phone: ${formData.phone}
+- Email: ${formData.email}
+- Address: ${formData.address}
+
+Project Details:
+- Property Type: ${formData.propertyType}
+- Project Type: ${formData.projectType}
+- Rooms/Areas: ${formData.rooms}
+- Timeline: ${formData.timeline}
+- Budget: ${formData.budget}
+
+Additional Details:
+${formData.details}
+
+This quote request was submitted from the CG Painting website.
+          `,
+        }),
       })
 
       const result = await response.json()
@@ -51,7 +85,7 @@ export default function QuoteForm() {
         setIsSubmitted(true)
         toast.success('Quote request submitted successfully!')
       } else {
-        throw new Error(result.message || 'Failed to submit')
+        throw new Error('Failed to submit form')
       }
     } catch (error) {
       console.error('Submission error:', error)

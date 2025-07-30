@@ -24,12 +24,46 @@ export default function TestQuotePage() {
         details: 'This is a test submission to verify the quote form is working correctly.'
       }
 
-      const response = await fetch('/api/quote', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(testData),
+        body: JSON.stringify({
+          access_key: 'c102832c-bb16-485f-903b-95cbd6aaee05',
+          name: testData.name,
+          email: testData.email,
+          phone: testData.phone,
+          address: testData.address,
+          propertyType: testData.propertyType,
+          projectType: testData.projectType,
+          rooms: testData.rooms,
+          timeline: testData.timeline,
+          budget: testData.budget,
+          details: testData.details,
+          subject: 'Test Quote Request - CG Painting',
+          message: `
+Test quote request received:
+
+Contact Information:
+- Name: ${testData.name}
+- Phone: ${testData.phone}
+- Email: ${testData.email}
+- Address: ${testData.address}
+
+Project Details:
+- Property Type: ${testData.propertyType}
+- Project Type: ${testData.projectType}
+- Rooms/Areas: ${testData.rooms}
+- Timeline: ${testData.timeline}
+- Budget: ${testData.budget}
+
+Additional Details:
+${testData.details}
+
+This is a test submission to verify the quote form is working correctly.
+          `,
+        }),
       })
 
       const result = await response.json()
