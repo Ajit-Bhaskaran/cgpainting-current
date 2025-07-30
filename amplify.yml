@@ -8,13 +8,13 @@ frontend:
         - echo "Node version:" && node --version
         - echo "NPM version:" && npm --version
         - cd app
-        - chmod +x build.sh
+        - npm ci --legacy-peer-deps
         - echo "=== PREBUILD PHASE END ==="
     build:
       commands:
         - echo "=== BUILD PHASE START ==="
         - cd app
-        - ./build.sh
+        - npm run build
         - echo "=== BUILD PHASE END ==="
   artifacts:
     baseDirectory: app/out
