@@ -36,12 +36,25 @@ export default function QuoteForm() {
     setIsSubmitting(true)
 
     try {
-      // Simulate form submission - in real app, this would be an API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      setIsSubmitted(true)
-      toast.success('Quote request submitted successfully!')
+      // Send form data to our API endpoint
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setIsSubmitted(true)
+        toast.success('Quote request submitted successfully!')
+      } else {
+        throw new Error(result.message || 'Failed to submit')
+      }
     } catch (error) {
+      console.error('Submission error:', error)
       toast.error('Failed to submit quote request. Please try again.')
     } finally {
       setIsSubmitting(false)
