@@ -8,17 +8,13 @@ frontend:
         - echo "Node version:" && node --version
         - echo "NPM version:" && npm --version
         - cd app
-        - npm ci --legacy-peer-deps
+        - chmod +x build.sh
         - echo "=== PREBUILD PHASE END ==="
     build:
       commands:
         - echo "=== BUILD PHASE START ==="
         - cd app
-        - npm run build
-        - echo "Verifying build output..."
-        - ls -la out/
-        - echo "Checking for images..."
-        - ls -la out/*.jpg out/*.png out/*.svg || echo "Some images not found"
+        - ./build.sh
         - echo "=== BUILD PHASE END ==="
   artifacts:
     baseDirectory: app/out
