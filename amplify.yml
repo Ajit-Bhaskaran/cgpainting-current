@@ -19,7 +19,6 @@ frontend:
     postBuild:
       commands:
         - echo "=== POSTBUILD PHASE START ==="
-        - cd app
         - echo "Checking if images exist in public folder:"
         - ls -la public/
         - echo "Checking if images were copied to out folder:"
