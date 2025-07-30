@@ -19,12 +19,26 @@ frontend:
     postBuild:
       commands:
         - echo "=== POSTBUILD PHASE START ==="
-        - echo "Checking if images exist in public folder:"
-        - ls -la public/
-        - echo "Checking if images were copied to out folder:"
-        - ls -la out/
-        - echo "Copying public folder contents to out if needed:"
-        - cp -r public/* out/ 2>/dev/null || echo "No public files to copy or already copied"
+        - echo "Current directory:"
+        - pwd
+        - echo "Directory contents:"
+        - ls -la
+        - echo "Checking for public folder in various locations:"
+        - if [ -d "public" ]; then echo "public folder found in current directory"; ls -la public/; fi
+        - if [ -d "app/public" ]; then echo "public folder found in app/public"; ls -la app/public/; fi
+        - if [ -d "../public" ]; then echo "public folder found in parent directory"; ls -la ../public/; fi
+        - echo "Checking for out folder:"
+        - if [ -d "out" ]; then echo "out folder found"; ls -la out/ | head -10; fi
+        - if [ -d "app/out" ]; then echo "out folder found in app/out"; ls -la app/out/ | head -10; fi
+        - echo "Checking for images in out folder:"
+        - if [ -d "out" ]; then find out/ -name "*.jpg" -o -name "*.png" -o -name "*.svg" | head -5; fi
+        - if [ -d "app/out" ]; then find app/out/ -name "*.jpg" -o -name "*.png" -o -name "*.svg" | head -5; fi
+        - echo "Attempting to copy images if needed:"
+        - if [ -d "public" ] && [ -d "out" ]; then echo "Copying from public to out"; cp -r public/* out/ 2>/dev/null || echo "Copy failed or files already exist"; fi
+        - if [ -d "app/public" ] && [ -d "app/out" ]; then echo "Copying from app/public to app/out"; cp -r app/public/* app/out/ 2>/dev/null || echo "Copy failed or files already exist"; fi
+        - echo "Final check of images in out folder:"
+        - if [ -d "out" ]; then find out/ -name "*.jpg" -o -name "*.png" -o -name "*.svg" | head -5; fi
+        - if [ -d "app/out" ]; then find app/out/ -name "*.jpg" -o -name "*.png" -o -name "*.svg" | head -5; fi
         - echo "=== POSTBUILD PHASE END ==="
   artifacts:
     baseDirectory: app/out
