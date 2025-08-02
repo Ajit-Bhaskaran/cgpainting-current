@@ -49,7 +49,7 @@ This project is optimized for AWS Amplify with:
 ## Contact Information
 
 - **Phone**: 0413 847 063
-- **Email**: info@cgpainting.com.au
+- **Email**: cgpainting@live.com.au
 - **Service Areas**: Multiple regions (call for confirmation)
 
 ## Local Development

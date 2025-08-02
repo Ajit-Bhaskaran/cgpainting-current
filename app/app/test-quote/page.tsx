@@ -90,7 +90,7 @@ This is a test submission to verify the quote form is working correctly.
         
         <p className="text-gray-600 mb-6 text-center">
           Click the button below to test the quote submission functionality.
-          This will send a test email to ajit.kanoli@gmail.com.
+          This will send a test email to cgpainting@live.com.au.
         </p>
 
         <Button 
@@ -105,7 +105,7 @@ This is a test submission to verify the quote form is working correctly.
           <h3 className="font-semibold text-blue-900 mb-2">What this test does:</h3>
           <ul className="text-sm text-blue-800 space-y-1">
             <li>• Sends a test quote request</li>
-            <li>• Emails ajit.kanoli@gmail.com</li>
+            <li>• Emails cgpainting@live.com.au</li>
             <li>• Shows success/error message</li>
             <li>• Logs details to browser console</li>
           </ul>

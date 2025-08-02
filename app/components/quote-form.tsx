@@ -191,7 +191,7 @@ This quote request was submitted from the CG Painting website.
                 <Phone className="w-5 h-5" />
                 Call Now: 0413 847 063
               </a>
-              <a href="mailto:info@cgpainting.com.au" className="flex items-center justify-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition-colors">
+              <a href="mailto:cgpainting@live.com.au" className="flex items-center justify-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition-colors">
                 <Mail className="w-5 h-5" />
                 Email Us Directly
               </a>

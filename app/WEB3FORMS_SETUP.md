@@ -4,7 +4,7 @@
 
 1. Go to https://web3forms.com/
 2. Click "Get Access Key"
-3. Enter your email: ajit.kanoli@gmail.com
+3. Enter your email: cgpainting@live.com.au
 4. Check your email for the access key
 5. Copy the access key (it looks like: 12345678-1234-1234-1234-123456789abc)
 
@@ -33,7 +33,7 @@ access_key: 'your-actual-access-key-here',
 
 - When someone submits the quote form, it sends the data to your API route
 - Your API route forwards the data to Web3Forms
-- Web3Forms sends an email to ajit.kanoli@gmail.com with all the form details
+- Web3Forms sends an email to cgpainting@live.com.au with all the form details
 - The user sees a success message
 
 ## Features

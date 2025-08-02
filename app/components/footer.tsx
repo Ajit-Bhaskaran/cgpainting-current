@@ -98,8 +98,8 @@ export default function Footer() {
                     <Mail className="w-4 h-4 text-blue-400" />
                     <span className="text-sm font-semibold">Email</span>
                   </div>
-                  <a href="mailto:info@cgpainting.com.au" className="text-blue-400 hover:text-blue-300 transition-colors block pl-7 break-all">
-                    info@cgpainting.com.au
+                  <a href="mailto:cgpainting@live.com.au" className="text-blue-400 hover:text-blue-300 transition-colors block pl-7 break-all">
+                    cgpainting@live.com.au
                   </a>
                 </div>
                 <div className="space-y-2">
