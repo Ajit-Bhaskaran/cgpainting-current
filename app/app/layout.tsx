@@ -20,6 +20,14 @@ export const metadata: Metadata = {
   title: 'CG Painting - The Travelling Painter | Professional Painting Services',
   description: 'Professional painting services for residential and commercial properties. Quality workmanship, reliable service, and competitive prices across the region.',
   keywords: 'painting, painter, residential painting, commercial painting, interior painting, exterior painting, professional painter',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/logo.png',
+  },
 }
 
 export default function RootLayout({
